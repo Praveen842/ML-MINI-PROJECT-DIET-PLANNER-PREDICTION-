@@ -5,9 +5,28 @@ import pandas as pd
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from train import train_models
+from dotenv import load_dotenv
+from supabase import create_client, Client
+
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
+
+# Supabase Configuration
+url: str = os.environ.get("SUPABASE_URL")
+key: str = os.environ.get("SUPABASE_KEY")
+supabase: Client = None
+
+if url and key:
+    try:
+        supabase = create_client(url, key)
+        print(f"Supabase client initialized successfully. URL: {url[:15]}...")
+    except Exception as e:
+        print(f"CRITICAL: Failed to initialize Supabase client: {e}")
+else:
+    print("WARNING: Supabase URL or Key missing from environment. Check your .env file.")
 
 # Global variables for food ML models to avoid reloading on every request
 FOOD_DF = None
@@ -197,12 +216,38 @@ def predict():
         # Generate timetable using ML model
         timetable = generate_timetable_ml(predicted_diet, duration, region)
         
-        return jsonify({
+        result = {
             "diet": predicted_diet,
             "duration": duration,
             "confidence": round(float(confidence), 2),
             "timetable": timetable
-        }), 200
+        }
+
+        # Store in Supabase if configured
+        if supabase:
+            try:
+                payload = {
+                    "user_data": {
+                        "age": age,
+                        "gender": gender,
+                        "height": height,
+                        "weight": weight,
+                        "bmi": round(bmi, 2),
+                        "activity_level": activity_level,
+                        "goal": goal,
+                        "region": region
+                    },
+                    "predicted_diet": predicted_diet,
+                    "confidence": float(confidence),
+                    "timetable": timetable
+                }
+                print(f"Attempting Supabase insert into 'diet_plans'...")
+                response = supabase.table("diet_plans").insert(payload).execute()
+                print(f"Supabase response: Success (inserted {len(response.data)} row)")
+            except Exception as e:
+                print(f"ERROR: Supabase insert failed: {str(e)}")
+
+        return jsonify(result), 200
         
     except Exception as e:
         return jsonify({"error": str(e)}), 500
