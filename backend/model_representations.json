@@ -1,0 +1,245 @@
+{
+    "Logistic Regression": {
+        "model_name": "Logistic Regression",
+        "equations": [
+            "z[Balanced] = (-2.449)*BMI + (1.986)*Weight + (1.641)*Goal_Maintain + (-1.131)*Activity Level_Low + (-0.989)*Height + (-0.938)*Goal_Weight Gain + (-0.284)",
+            "z[Bodybuilding] = (4.151)*Goal_Bodybuilding + (-2.533)*Goal_Maintain + (-1.680)*Goal_General Health + (1.370)*BMI + (1.339)*Activity Level_Very High + (1.336)*Activity Level_High + (0.176)",
+            "z[Health & Wellness] = (3.771)*Goal_General Health + (-1.967)*Goal_Weight Gain + (1.898)*Activity Level_Low + (-1.487)*Goal_Bodybuilding + (0.729)*BMI + (-0.692)*Goal_Weight Loss + (0.090)",
+            "z[Weight Gain] = (1.752)*Goal_Weight Gain + (-0.928)*Goal_Weight Loss + (-0.897)*Goal_Bodybuilding + (0.696)*Activity Level_Medium + (-0.689)*Activity Level_Very High + (-0.679)*Activity Level_High + (-0.428)",
+            "z[Weight Loss] = (3.092)*Goal_Weight Loss + (-1.635)*Goal_Bodybuilding + (-1.083)*Goal_General Health + (0.997)*BMI + (0.437)*Activity Level_Medium + (-0.176)*Goal_Weight Gain + (0.446)"
+        ],
+        "feature_importance": [
+            {
+                "feature": "Goal_Bodybuilding",
+                "weight": 1.6605
+            },
+            {
+                "feature": "Goal_General Health",
+                "weight": 1.5084
+            },
+            {
+                "feature": "BMI",
+                "weight": 1.2384
+            },
+            {
+                "feature": "Goal_Weight Loss",
+                "weight": 1.2367
+            },
+            {
+                "feature": "Goal_Weight Gain",
+                "weight": 1.2321
+            },
+            {
+                "feature": "Goal_Maintain",
+                "weight": 1.0132
+            },
+            {
+                "feature": "Activity Level_Low",
+                "weight": 0.9596
+            },
+            {
+                "feature": "Weight",
+                "weight": 0.7946
+            }
+        ]
+    },
+    "Decision Tree": {
+        "model_name": "Decision Tree",
+        "depth": 30,
+        "n_nodes": 2157,
+        "n_leaves": 1079,
+        "rules": "|--- Goal_Weight Loss <= 0.50\n|   |--- Goal_General Health <= 0.50\n|   |   |--- Goal_Maintain <= 0.50\n|   |   |   |--- Goal_Weight Gain <= 0.50\n|   |   |   |   |--- truncated branch of depth 20\n|   |   |   |--- Goal_Weight Gain >  0.50\n|   |   |   |   |--- truncated branch of depth 27\n|   |   |--- Goal_Maintain >  0.50\n|   |   |   |--- BMI <= 0.41\n|   |   |   |   |--- truncated branch of depth 20\n|   |   |   |--- BMI >  0.41\n|   |   |   |   |--- truncated branch of depth 20\n|   |--- Goal_General Health >  0.50\n|   |   |--- Height <= -0.49\n|   |   |   |--- Height <= -1.36\n|   |   |   |   |--- truncated branch of depth 9\n|   |   |   |--- Height >  -1.36\n|   |   |   |   |--- truncated branch of depth 10\n|   |   |--- Height >  -0.49\n|   |   |   |--- BMI <= 2.38\n|   |   |   |   |--- truncated branch of depth 20\n|   |   |   |--- BMI >  2.38\n|   |   |   |   |--- class: Bodybuilding\n|--- Goal_Weight Loss >  0.50\n|   |--- Age <= -0.78\n|   |   |--- Height <= 2.65\n|   |   |   |--- BMI <= -1.36\n|   |   |   |   |--- truncated branch of depth 6\n|   |   |   |--- BMI >  -1.36\n|   |   |   |   |--- truncated branch of depth 15\n|   |   |--- Height >  2.65\n|   |   |   |--- Weight <= -0.62\n|   |   |   |   |--- class: Weight Loss\n|   |   |   |--- Weight >  -0.62\n|   |   |   |   |--- class: Bodybuilding\n|   |--- Age >  -0.78\n|   |   |--- Sleep Hours <= 0.57\n|   |   |   |--- Sleep Hours <= 0.56\n|   |   |   |   |--- truncated branch of depth 26\n|   |   |   |--- Sleep Hours >  0.56\n|   |   |   |   |--- class: Health & Wellness\n|   |   |--- Sleep Hours >  0.57\n|   |   |   |--- Height <= 2.61\n|   |   |   |   |--- truncated branch of depth 18\n|   |   |   |--- Height >  2.61\n|   |   |   |   |--- truncated branch of depth 2\n",
+        "tree_structure": {
+            "type": "node",
+            "feature": "Goal_Weight Loss",
+            "threshold": 0.5,
+            "left": {
+                "type": "node",
+                "feature": "Goal_General Health",
+                "threshold": 0.5,
+                "left": {
+                    "type": "node",
+                    "feature": "Goal_Maintain",
+                    "threshold": 0.5,
+                    "left": {
+                        "type": "leaf",
+                        "class_idx": 1
+                    },
+                    "right": {
+                        "type": "leaf",
+                        "class_idx": 0
+                    }
+                },
+                "right": {
+                    "type": "node",
+                    "feature": "Height",
+                    "threshold": -0.49,
+                    "left": {
+                        "type": "leaf",
+                        "class_idx": 2
+                    },
+                    "right": {
+                        "type": "leaf",
+                        "class_idx": 2
+                    }
+                }
+            },
+            "right": {
+                "type": "node",
+                "feature": "Age",
+                "threshold": -0.78,
+                "left": {
+                    "type": "node",
+                    "feature": "Height",
+                    "threshold": 2.65,
+                    "left": {
+                        "type": "leaf",
+                        "class_idx": 4
+                    },
+                    "right": {
+                        "type": "leaf",
+                        "class_idx": 1
+                    }
+                },
+                "right": {
+                    "type": "node",
+                    "feature": "Sleep Hours",
+                    "threshold": 0.57,
+                    "left": {
+                        "type": "leaf",
+                        "class_idx": 4
+                    },
+                    "right": {
+                        "type": "leaf",
+                        "class_idx": 4
+                    }
+                }
+            }
+        },
+        "classes": [
+            "Balanced",
+            "Bodybuilding",
+            "Health & Wellness",
+            "Weight Gain",
+            "Weight Loss"
+        ]
+    },
+    "Random Forest": {
+        "model_name": "Random Forest",
+        "n_estimators": 100,
+        "feature_importance": [
+            {
+                "feature": "Goal_Weight Loss",
+                "importance": 0.1769
+            },
+            {
+                "feature": "Goal_General Health",
+                "importance": 0.1325
+            },
+            {
+                "feature": "Goal_Bodybuilding",
+                "importance": 0.1192
+            },
+            {
+                "feature": "BMI",
+                "importance": 0.1028
+            },
+            {
+                "feature": "Goal_Maintain",
+                "importance": 0.0768
+            },
+            {
+                "feature": "Goal_Weight Gain",
+                "importance": 0.0673
+            },
+            {
+                "feature": "Weight",
+                "importance": 0.0569
+            },
+            {
+                "feature": "Activity Level_Low",
+                "importance": 0.0446
+            }
+        ],
+        "sample_trees": [
+            {
+                "tree_index": 1,
+                "rules": "|--- Goal_Weight Loss <= 0.50\n|   |--- Goal_General Health <= 0.50\n|   |   |--- BMI <= 0.41\n|   |   |   |--- truncated branch of depth 19\n|   |   |--- BMI >  0.41\n|   |   |   |--- truncated branch of depth 16\n|   |--- Goal_General Health >  0.50\n|   |   |--- Sleep Hours <= 2.06\n|   |   |   |--- truncated branch of depth 16\n|   |   |--- Sleep Hours >  2.06\n|   |   |   |--- truncated branch of depth 4\n|--- Goal_Weight Loss >  0.50\n|   |--- Age <= -0.78\n|   |   |--- Height <= 2.65\n|   |   |   |--- truncated branch of depth 16\n|   |   |--- Height >  2.65\n|   |   |   |--- truncated branch of depth 2\n|   |--- Age >  -0.78\n|   |   |--- Height <= 1.17\n|   |   |   |--- truncated branch of depth 20\n|   |   |--- Height >  1.17\n|   |   |   |--- truncated branch of depth 15\n",
+                "tree_structure": {
+                    "type": "node",
+                    "feature": "Goal_Weight Loss",
+                    "threshold": 0.5,
+                    "left": {
+                        "type": "node",
+                        "feature": "Goal_General Health",
+                        "threshold": 0.5,
+                        "left": {
+                            "type": "leaf",
+                            "class_idx": 1
+                        },
+                        "right": {
+                            "type": "leaf",
+                            "class_idx": 2
+                        }
+                    },
+                    "right": {
+                        "type": "node",
+                        "feature": "Age",
+                        "threshold": -0.78,
+                        "left": {
+                            "type": "leaf",
+                            "class_idx": 4
+                        },
+                        "right": {
+                            "type": "leaf",
+                            "class_idx": 4
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    "Gradient Boosting": {
+        "model_name": "Gradient Boosting",
+        "n_estimators": 100,
+        "learning_rate": 0.1,
+        "max_depth": 3,
+        "sample_trees": [
+            {
+                "tree_index": 1,
+                "rules": "|--- Goal_Maintain <= 0.50\n|   |--- Weight <= -2.74\n|   |   |--- Age <= 1.41\n|   |   |   |--- value: [-0.44]\n|   |   |--- Age >  1.41\n|   |   |   |--- value: [8.03]\n|   |--- Weight >  -2.74\n|   |   |--- Sleep Hours <= -0.56\n|   |   |   |--- value: [-0.79]\n|   |   |--- Sleep Hours >  -0.56\n|   |   |   |--- value: [-0.67]\n|--- Goal_Maintain >  0.50\n|   |--- BMI <= 0.41\n|   |   |--- BMI <= -0.99\n|   |   |   |--- value: [-0.64]\n|   |   |--- BMI >  -0.99\n|   |   |   |--- value: [5.92]\n|   |--- BMI >  0.41\n|   |   |--- Weight <= -0.25\n|   |   |   |--- value: [0.30]\n|   |   |--- Weight >  -0.25\n|   |   |   |--- value: [-0.70]\n",
+                "tree_structure": {
+                    "type": "node",
+                    "feature": "Goal_Maintain",
+                    "threshold": 0.5,
+                    "left": {
+                        "type": "node",
+                        "feature": "Weight",
+                        "threshold": -2.74,
+                        "left": {
+                            "type": "leaf",
+                            "class_idx": 0
+                        },
+                        "right": {
+                            "type": "leaf",
+                            "class_idx": 0
+                        }
+                    },
+                    "right": {
+                        "type": "node",
+                        "feature": "BMI",
+                        "threshold": 0.41,
+                        "left": {
+                            "type": "leaf",
+                            "class_idx": 0
+                        },
+                        "right": {
+                            "type": "leaf",
+                            "class_idx": 0
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

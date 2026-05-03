@@ -1,0 +1,486 @@
+{
+    "Logistic Regression": {
+        "accuracy": 0.8757,
+        "precision": 0.8379,
+        "recall": 0.8437,
+        "f1": 0.8363,
+        "confusion_matrix": [
+            [
+                157,
+                7,
+                7,
+                5,
+                14
+            ],
+            [
+                9,
+                441,
+                13,
+                2,
+                17
+            ],
+            [
+                6,
+                11,
+                346,
+                11,
+                14
+            ],
+            [
+                46,
+                10,
+                10,
+                156,
+                11
+            ],
+            [
+                37,
+                6,
+                7,
+                18,
+                739
+            ]
+        ],
+        "classes": [
+            "Balanced",
+            "Bodybuilding",
+            "Health & Wellness",
+            "Weight Gain",
+            "Weight Loss"
+        ],
+        "feature_importances": [],
+        "coefficients": [
+            {
+                "feature": "Goal_Bodybuilding",
+                "coefficient": 1.6605
+            },
+            {
+                "feature": "Goal_General Health",
+                "coefficient": 1.5084
+            },
+            {
+                "feature": "BMI",
+                "coefficient": 1.2384
+            },
+            {
+                "feature": "Goal_Weight Loss",
+                "coefficient": 1.2367
+            },
+            {
+                "feature": "Goal_Weight Gain",
+                "coefficient": 1.2321
+            },
+            {
+                "feature": "Goal_Maintain",
+                "coefficient": 1.0132
+            },
+            {
+                "feature": "Activity Level_Low",
+                "coefficient": 0.9596
+            },
+            {
+                "feature": "Weight",
+                "coefficient": 0.7946
+            },
+            {
+                "feature": "Activity Level_Medium",
+                "coefficient": 0.7131
+            },
+            {
+                "feature": "Activity Level_Very High",
+                "coefficient": 0.6075
+            },
+            {
+                "feature": "Activity Level_High",
+                "coefficient": 0.5793
+            },
+            {
+                "feature": "Height",
+                "coefficient": 0.3956
+            },
+            {
+                "feature": "Gender_Female",
+                "coefficient": 0.1052
+            },
+            {
+                "feature": "Gender_Male",
+                "coefficient": 0.0834
+            },
+            {
+                "feature": "Sleep Hours",
+                "coefficient": 0.047
+            },
+            {
+                "feature": "Age",
+                "coefficient": 0.0249
+            },
+            {
+                "feature": "Water Intake",
+                "coefficient": 0.0247
+            }
+        ]
+    },
+    "Decision Tree": {
+        "accuracy": 0.8314,
+        "precision": 0.7939,
+        "recall": 0.801,
+        "f1": 0.7972,
+        "confusion_matrix": [
+            [
+                139,
+                9,
+                13,
+                10,
+                19
+            ],
+            [
+                26,
+                399,
+                25,
+                10,
+                22
+            ],
+            [
+                8,
+                14,
+                319,
+                25,
+                22
+            ],
+            [
+                14,
+                18,
+                10,
+                171,
+                20
+            ],
+            [
+                19,
+                25,
+                27,
+                18,
+                718
+            ]
+        ],
+        "classes": [
+            "Balanced",
+            "Bodybuilding",
+            "Health & Wellness",
+            "Weight Gain",
+            "Weight Loss"
+        ],
+        "feature_importances": [
+            {
+                "feature": "Goal_Weight Loss",
+                "importance": 0.2221
+            },
+            {
+                "feature": "BMI",
+                "importance": 0.1594
+            },
+            {
+                "feature": "Goal_General Health",
+                "importance": 0.149
+            },
+            {
+                "feature": "Goal_Maintain",
+                "importance": 0.0969
+            },
+            {
+                "feature": "Activity Level_Low",
+                "importance": 0.062
+            },
+            {
+                "feature": "Activity Level_High",
+                "importance": 0.0513
+            },
+            {
+                "feature": "Goal_Weight Gain",
+                "importance": 0.0508
+            },
+            {
+                "feature": "Activity Level_Very High",
+                "importance": 0.0422
+            },
+            {
+                "feature": "Sleep Hours",
+                "importance": 0.0413
+            },
+            {
+                "feature": "Height",
+                "importance": 0.0336
+            },
+            {
+                "feature": "Water Intake",
+                "importance": 0.0326
+            },
+            {
+                "feature": "Weight",
+                "importance": 0.0277
+            },
+            {
+                "feature": "Age",
+                "importance": 0.0247
+            },
+            {
+                "feature": "Activity Level_Medium",
+                "importance": 0.0024
+            },
+            {
+                "feature": "Gender_Female",
+                "importance": 0.0021
+            },
+            {
+                "feature": "Gender_Male",
+                "importance": 0.0018
+            },
+            {
+                "feature": "Goal_Bodybuilding",
+                "importance": 0.0
+            }
+        ],
+        "coefficients": []
+    },
+    "Random Forest": {
+        "accuracy": 0.9157,
+        "precision": 0.9051,
+        "recall": 0.8859,
+        "f1": 0.895,
+        "confusion_matrix": [
+            [
+                155,
+                7,
+                7,
+                6,
+                15
+            ],
+            [
+                6,
+                441,
+                13,
+                4,
+                18
+            ],
+            [
+                3,
+                11,
+                350,
+                9,
+                15
+            ],
+            [
+                9,
+                10,
+                10,
+                192,
+                12
+            ],
+            [
+                5,
+                6,
+                7,
+                4,
+                785
+            ]
+        ],
+        "classes": [
+            "Balanced",
+            "Bodybuilding",
+            "Health & Wellness",
+            "Weight Gain",
+            "Weight Loss"
+        ],
+        "feature_importances": [
+            {
+                "feature": "Goal_Weight Loss",
+                "importance": 0.1769
+            },
+            {
+                "feature": "Goal_General Health",
+                "importance": 0.1325
+            },
+            {
+                "feature": "Goal_Bodybuilding",
+                "importance": 0.1192
+            },
+            {
+                "feature": "BMI",
+                "importance": 0.1028
+            },
+            {
+                "feature": "Goal_Maintain",
+                "importance": 0.0768
+            },
+            {
+                "feature": "Goal_Weight Gain",
+                "importance": 0.0673
+            },
+            {
+                "feature": "Weight",
+                "importance": 0.0569
+            },
+            {
+                "feature": "Activity Level_Low",
+                "importance": 0.0446
+            },
+            {
+                "feature": "Height",
+                "importance": 0.0421
+            },
+            {
+                "feature": "Sleep Hours",
+                "importance": 0.0355
+            },
+            {
+                "feature": "Water Intake",
+                "importance": 0.035
+            },
+            {
+                "feature": "Activity Level_High",
+                "importance": 0.0328
+            },
+            {
+                "feature": "Age",
+                "importance": 0.0283
+            },
+            {
+                "feature": "Activity Level_Medium",
+                "importance": 0.0269
+            },
+            {
+                "feature": "Activity Level_Very High",
+                "importance": 0.0153
+            },
+            {
+                "feature": "Gender_Female",
+                "importance": 0.0036
+            },
+            {
+                "feature": "Gender_Male",
+                "importance": 0.0036
+            }
+        ],
+        "coefficients": []
+    },
+    "Gradient Boosting": {
+        "accuracy": 0.9119,
+        "precision": 0.8984,
+        "recall": 0.8831,
+        "f1": 0.8903,
+        "confusion_matrix": [
+            [
+                155,
+                7,
+                7,
+                6,
+                15
+            ],
+            [
+                6,
+                441,
+                13,
+                4,
+                18
+            ],
+            [
+                4,
+                11,
+                349,
+                9,
+                15
+            ],
+            [
+                10,
+                10,
+                10,
+                191,
+                12
+            ],
+            [
+                8,
+                7,
+                8,
+                5,
+                779
+            ]
+        ],
+        "classes": [
+            "Balanced",
+            "Bodybuilding",
+            "Health & Wellness",
+            "Weight Gain",
+            "Weight Loss"
+        ],
+        "feature_importances": [
+            {
+                "feature": "Goal_Weight Loss",
+                "importance": 0.2106
+            },
+            {
+                "feature": "Goal_General Health",
+                "importance": 0.1762
+            },
+            {
+                "feature": "Goal_Bodybuilding",
+                "importance": 0.1553
+            },
+            {
+                "feature": "Goal_Maintain",
+                "importance": 0.1284
+            },
+            {
+                "feature": "BMI",
+                "importance": 0.1123
+            },
+            {
+                "feature": "Goal_Weight Gain",
+                "importance": 0.0721
+            },
+            {
+                "feature": "Activity Level_High",
+                "importance": 0.0645
+            },
+            {
+                "feature": "Activity Level_Low",
+                "importance": 0.0251
+            },
+            {
+                "feature": "Activity Level_Very High",
+                "importance": 0.0204
+            },
+            {
+                "feature": "Activity Level_Medium",
+                "importance": 0.0096
+            },
+            {
+                "feature": "Weight",
+                "importance": 0.0061
+            },
+            {
+                "feature": "Height",
+                "importance": 0.006
+            },
+            {
+                "feature": "Sleep Hours",
+                "importance": 0.0056
+            },
+            {
+                "feature": "Water Intake",
+                "importance": 0.0054
+            },
+            {
+                "feature": "Age",
+                "importance": 0.0023
+            },
+            {
+                "feature": "Gender_Female",
+                "importance": 0.0001
+            },
+            {
+                "feature": "Gender_Male",
+                "importance": 0.0
+            }
+        ],
+        "coefficients": []
+    }
+}
