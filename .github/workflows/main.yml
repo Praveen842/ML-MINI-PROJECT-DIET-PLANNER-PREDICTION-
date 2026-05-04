@@ -59,4 +59,14 @@ jobs:
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL || 'http://localhost:5000' }}
 
-  # Note: Add a deployment job here once the hosting provider (Render, Vercel, etc.) is decided.
+  deploy:
+    name: Deploy to Render
+    needs: [backend-ci, frontend-ci]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Backend Deploy
+        run: curl -X POST ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}
+        
+      - name: Trigger Frontend Deploy
+        run: curl -X POST ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}
