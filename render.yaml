@@ -1,14 +1,27 @@
 services:
+  # Flask Backend Web Service
   - type: web
-    name: diet-backend
-    env: python
-    rootDir: backend
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    name: diet-planner-api
+    runtime: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: gunicorn --chdir backend app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.0
+      - key: SUPABASE_URL
+        sync: false # Set this in Render dashboard
+      - key: SUPABASE_KEY
+        sync: false # Set this in Render dashboard
 
+  # React Frontend Static Site
   - type: web
-    name: diet-frontend
-    env: static
-    rootDir: frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: build
+    name: diet-planner-ui
+    runtime: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: diet-planner-api
+          property: url
