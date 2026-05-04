@@ -28,6 +28,14 @@ if url and key:
 else:
     print("WARNING: Supabase URL or Key missing from environment. Check your .env file.")
 
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({
+        "status": "online",
+        "message": "Diet AI Engine API is running.",
+        "endpoints": ["/predict", "/metrics", "/model-representations", "/train"]
+    }), 200
+
 # Global variables for food ML models to avoid reloading on every request
 FOOD_DF = None
 FOOD_PREPROCESSOR = None
