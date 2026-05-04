@@ -15,18 +15,18 @@ app = Flask(__name__)
 CORS(app)
 
 # Supabase Configuration
-url: str = os.environ.get("SUPABASE_URL")
-key: str = os.environ.get("SUPABASE_KEY")
-supabase: Client = None
+SUPABASE_URL = os.environ.get("SUPABASE_URL")
+SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY) if SUPABASE_URL and SUPABASE_KEY else None
 
-if url and key:
-    try:
-        supabase = create_client(url, key)
-        print(f"Supabase client initialized successfully. URL: {url[:15]}...")
-    except Exception as e:
-        print(f"CRITICAL: Failed to initialize Supabase client: {e}")
-else:
-    print("WARNING: Supabase URL or Key missing from environment. Check your .env file.")
+# Nutritional Targets Configuration
+DIET_TARGETS = {
+    'Weight Loss': {'Breakfast': (250, 10, 30, 5), 'Lunch': (350, 15, 40, 8), 'Dinner': (200, 10, 20, 5)},
+    'Weight Gain': {'Breakfast': (500, 15, 60, 15), 'Lunch': (700, 30, 80, 25), 'Dinner': (600, 25, 70, 20)},
+    'Bodybuilding': {'Breakfast': (400, 35, 30, 10), 'Lunch': (500, 50, 40, 15), 'Dinner': (450, 45, 20, 12)},
+    'Health & Wellness': {'Breakfast': (200, 5, 40, 5), 'Lunch': (300, 15, 35, 10), 'Dinner': (150, 8, 20, 5)},
+    'Balanced': {'Breakfast': (350, 12, 45, 10), 'Lunch': (500, 20, 60, 15), 'Dinner': (400, 18, 50, 12)}
+}
 
 @app.route('/', methods=['GET'])
 def home():
@@ -63,16 +63,7 @@ def generate_timetable_ml(diet_type, duration, region):
     # To query, we create a dummy record with desired features.
     # For calories, we set target calories depending on meal and diet type.
     
-    if diet_type == 'Weight Loss':
-        targets = {'Breakfast': (250, 10, 30, 5), 'Lunch': (350, 15, 40, 8), 'Dinner': (200, 10, 20, 5)}
-    elif diet_type == 'Weight Gain':
-        targets = {'Breakfast': (500, 15, 60, 15), 'Lunch': (700, 30, 80, 25), 'Dinner': (600, 25, 70, 20)}
-    elif diet_type == 'Bodybuilding':
-        targets = {'Breakfast': (400, 35, 30, 10), 'Lunch': (500, 50, 40, 15), 'Dinner': (450, 45, 20, 12)}
-    elif diet_type == 'Health & Wellness':
-        targets = {'Breakfast': (200, 5, 40, 5), 'Lunch': (300, 15, 35, 10), 'Dinner': (150, 8, 20, 5)}
-    else: # Balanced
-        targets = {'Breakfast': (350, 12, 45, 10), 'Lunch': (500, 20, 60, 15), 'Dinner': (400, 18, 50, 12)}
+    targets = DIET_TARGETS.get(diet_type, DIET_TARGETS['Balanced'])
         
     for day in range(duration):
         day_plan = {"day": f"Day {day + 1}"}
@@ -154,7 +145,6 @@ def model_representations():
             reps = json.load(f)
         # Also include KNN info
         if os.path.exists('food_knn_model.pkl'):
-            import pickle
             with open('food_knn_model.pkl', 'rb') as f:
                 knn = pickle.load(f)
             reps['KNN Food Recommender'] = {
@@ -182,11 +172,11 @@ def predict():
             model = pickle.load(f)
             
         try:
-            # Extract features
+            # Extract features with defaults
             age = float(data.get('Age', 25))
             gender = data.get('Gender', 'Male')
             raw_height = float(data.get('Height', 170))
-            height = raw_height / 100 if raw_height > 3 else raw_height # ensure meters
+            height = raw_height / 100 if raw_height > 3 else raw_height
             weight = float(data.get('Weight', 70))
             activity_level = data.get('Activity Level', 'Medium')
             sleep_hours = float(data.get('Sleep Hours', 7))
@@ -194,8 +184,8 @@ def predict():
             goal = data.get('Goal', 'Weight Loss')
             duration = int(data.get('Duration', 7))
             region = data.get('Region', 'North India')
-        except ValueError:
-            return jsonify({"error": "Invalid input data. Please ensure all numeric fields are filled correctly."}), 400
+        except (ValueError, TypeError):
+            return jsonify({"error": "Invalid numeric input fields."}), 400
         
         bmi = weight / (height ** 2)
         

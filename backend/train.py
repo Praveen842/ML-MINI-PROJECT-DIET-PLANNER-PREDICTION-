@@ -15,18 +15,15 @@ from sklearn.neighbors import NearestNeighbors
 
 def serialize_tree(tree, feature_names, node_id=0, max_depth=4, current_depth=0):
     if current_depth >= max_depth or tree.children_left[node_id] == tree.children_right[node_id]:
-        # leaf
-        class_counts = tree.value[node_id][0]
-        class_idx = int(np.argmax(class_counts))
-        return {"type": "leaf", "class_idx": class_idx}
-    else:
-        return {
-            "type": "node",
-            "feature": feature_names[tree.feature[node_id]],
-            "threshold": round(float(tree.threshold[node_id]), 2),
-            "left": serialize_tree(tree, feature_names, tree.children_left[node_id], max_depth, current_depth + 1),
-            "right": serialize_tree(tree, feature_names, tree.children_right[node_id], max_depth, current_depth + 1)
-        }
+        return {"type": "leaf", "class_idx": int(np.argmax(tree.value[node_id][0]))}
+    
+    return {
+        "type": "node",
+        "feature": feature_names[tree.feature[node_id]],
+        "threshold": round(float(tree.threshold[node_id]), 2),
+        "left": serialize_tree(tree, feature_names, tree.children_left[node_id], max_depth, current_depth + 1),
+        "right": serialize_tree(tree, feature_names, tree.children_right[node_id], max_depth, current_depth + 1)
+    }
 
 def get_model_representations(trained_pipelines, numeric_features, categorical_features, knn_model=None):
     """Extract human-readable representations for all models and return as a dict."""
